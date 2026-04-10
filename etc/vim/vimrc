@@ -5,7 +5,7 @@ syntax enable
 set background=dark
 set colorcolumn=110
 set mouse=a
-set compatible
+set nocompatible
 
 set ignorecase
 set incsearch
@@ -15,7 +15,6 @@ set nobackup
 set nohlsearch
 set noswapfile
 
-set nu
 set number
 set relativenumber
 

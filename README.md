@@ -95,6 +95,10 @@ curl -fsS https://dl.brave.com/install.sh | sh
 ```bash
 pipx install ropper
 pipx install exegol
+pipx install argcomplete
+echo "alias exegol='sudo -E $(echo ~/.local/bin/exegol)'" >> ~/.zshrc && source ~/.zshrc
+echo "autoload -U compinit && compinit" >> ~/.zshrc
+echo 'eval "$(register-python-argcomplete --no-defaults exegol)"' >> ~/.zshrc
 ```
 
 ## Install Docker Engine
@@ -117,4 +121,14 @@ EOF
 
 sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+## Install Exegol
+```
+exegol install
+```
+
+## Install Obsidian
+```
+wget https://github.com/obsidianmd/obsidian-releases/releases/download/v1.12.7/obsidian_1.12.7_amd64.deb -O /tmp/obsidian.deb && sudo dpkg -i /tmp/obsidian.deb
 ```

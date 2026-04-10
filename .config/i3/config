@@ -55,12 +55,12 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-exec_always feh --no-fehbg --bg-fill ~/.local/share/wallpapers/
-exec_always killall polybar ; ~/.local/bin/polybar-start
-exec_always keepassxc ~/.local/share/*.kdbx
-exec_always nm-applet
-exec_always numlockx
-exec_always setxkbmap -layout "us" -variant "basic"
+exec_always --no-startup-id feh --no-fehbg --bg-fill ~/.local/share/wallpapers/
+exec_always --no-startup-id killall polybar ; ~/.local/bin/polybar-start
+exec_always --no-startup-id sh -c 'keepassxc $HOME/.local/share/*.kdbx'
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id numlockx
+exec_always --no-startup-id setxkbmap -layout "us" -variant "basic" -option "caps:escape"
 
 bindsym $mod+r                 mode "resize"
 bindsym $mod+Shift+r           restart

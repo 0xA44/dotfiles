@@ -9,12 +9,12 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 export HISTSIZE=65535
 export HISTFILESIZE=65535
 export LESSHISTFILE="-"
-export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoreboth
 
 if [[ $EUID == 0 ]]; then
-	export PS1='\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \033[01;33m\](\033[01;33m\]$(git branch 2>/dev/null | grep '"'"'*'"'"' | colrm 1 2)) \[\033[00m\]\\$ ';
+	export PS1='\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \[\033[01;33m\]($(git branch --show-current 2>/dev/null)) \[\033[00m\]\$ ';
 else
-	export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \033[01;33m\](\033[01;33m\]$(git branch 2>/dev/null | grep '"'"'*'"'"' | colrm 1 2)) \[\033[00m\]\\$ ';
+	export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \[\033[01;33m\]($(git branch --show-current 2>/dev/null)) \[\033[00m\]\$ ';
 fi
 
 set -o vi
@@ -33,5 +33,4 @@ alias \
 	la='ls -lArth' \
 	mkdir='mkdir -pv' \
 	mv='mv -iv' \
-	rm='rm --preserve-root' \
-	rm='rm -vI';
+	rm='rm -vI --preserve-root';
