@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# verbosity
+alias \
+	cp='cp -iv' \
+	mv='mv -iv' \
+	rm='rm -vI' \
+	mkdir='mkdir -pv';
+
+# colors
+alias \
+	ls='ls -hNSv1 --color=auto --group-directories-first --classify' \
+	grep='grep --color=auto' \
+	diff='diff --color=auto' \
+	ip='ip -color=always' \
+	tshark='tshark --color';
+
+# security
+alias \
+	chmod='chmod --preserve-root' \
+	chown='chown --preserve-root' \
+	rm='rm --preserve-root';
+
+# convenience
+alias \
+	cd..='cd ..' \
+	la='ls -lA' \
+	ll='ls -l' \
+	less="less -RS" \
+	rsync='rsync -ahv --info=progress2' \
+	vi='nvim' \
+	vim='nvim' \
+	v='nvim' \
+	t='tmux' \
+	e="$EDITOR" \
+	v="$PAGER" \
+	reload='source ~/.config/zsh/.zshrc';
+
+alias \
+	pwninit='pwninit --template-path ~/.config/pwninit-template.py --template-bin-name e'

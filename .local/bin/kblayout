@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+setxkbmap -query | grep variant | grep basic \
+	&& setxkbmap -layout us -variant intl -option "caps:escape" && dunstify "Changed keyboard layout to QWERTY-INTL" \
+	|| setxkbmap -layout us -variant basic -option "caps:escape" && dunstify "Changed keyboard layout to QWERTY-US";

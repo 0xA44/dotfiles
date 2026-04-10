@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+option=$(autorandr --list | rofi -i -dmenu -p 'Switch to ')
+if [[ ! -z "$option" ]]; then
+	autorandr --load $option && i3-msg restart;
+fi
