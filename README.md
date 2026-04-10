@@ -1,134 +1,20 @@
 # dotfiles
----
 
-## Install packages
+## Install
+
 ```bash
-sudo apt update
-sudo apt upgrade
-sudo apt install -y \
-    7zip \
-    alacritty \
-    arandr \
-    autorandr \
-    brightnessctl \
-    cmake \
-    curl \
-    dunst \
-    entr \
-    etckeeper \
-    feh \
-    flameshot \
-    gcc \
-    gdb \
-    git \
-    i3 \
-    i3lock \
-    keepassxc \
-    linux-headers-amd64 \
-    maim \
-    make \
-    mingw-w64 \
-    mpv \
-    nasm \
-    neovim \
-    numlockx \
-    picom \
-    pipx \
-    pkg-config \
-    polybar \
-    pulsemixer \
-    python3 \
-    python3-pip \
-    rofi \
-    rsync \
-    screen \
-    sxiv \
-    thunar \
-    tmux \
-    vim \
-    wget \
-    wireguard \
-    xterm \
-    zsh \
-    zsh-autosuggestions \
-    zsh-syntax-highlighting
+git clone <repo-url> ~/dotfiles
+cd ~/dotfiles
+./install.sh
 ```
 
-## Configure system files
-```bash
-sudo cp etc/X11/xorg.conf.d/20-keyboard.conf /etc/X11/xorg.conf.d/20-keyboard.conf
-sudo cp etc/modprobe.d/kvm-blacklist.conf /etc/modprobe.d/kvm-blacklist.conf
-sudo cp etc/bash.bashrc /etc/bash.bashrc
-sudo cp etc/screenrc /etc/screenrc
-sudo cp etc/tmux.conf /etc/tmux.conf
-sudo cp etc/vim/vimrc /etc/vim/vimrc
-```
+Then reboot, and run `exegol install` to pull the pentest Docker image.
 
-## Configure dot files
-```bash
-mkdir -p ~/.config ~/.local ~/.local/bin ~/.local/share ~/.local/share/applications
-cp -r .config/* ~/.config/.
-cp -r .local/bin/* ~/.local/bin/.
+## What install.sh does
 
-rm ~/.profile ~/.xsession
-ln -s ~/.config/environment.d/profile.conf ~/.profile
-cp .xsession ~/.xsession
-cp .gdbinit ~/.gdbinit
-cp .editrc ~/.editrc
-cp -r .binaryninja/ ~/.binaryninja/
-```
-
-## Install neovim-plug
-```bash
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-```
-
-## Instal tools via curl
-```bash
-curl -qsL 'https://install.pwndbg.re' | sh -s -- -t pwndbg-gdb
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-curl -fsS https://dl.brave.com/install.sh | sh
-```
-
-## Install tools via pipx
-```bash
-pipx install ropper
-pipx install exegol
-pipx install argcomplete
-echo "alias exegol='sudo -E $(echo ~/.local/bin/exegol)'" >> ~/.zshrc && source ~/.zshrc
-echo "autoload -U compinit && compinit" >> ~/.zshrc
-echo 'eval "$(register-python-argcomplete --no-defaults exegol)"' >> ~/.zshrc
-```
-
-## Install Docker Engine
-```
-# Add Docker's official GPG key:
-sudo apt update
-sudo apt install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
-sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
-Types: deb
-URIs: https://download.docker.com/linux/debian
-Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
-Components: stable
-Signed-By: /etc/apt/keyrings/docker.asc
-EOF
-
-sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
-
-## Install Exegol
-```
-exegol install
-```
-
-## Install Obsidian
-```
-wget https://github.com/obsidianmd/obsidian-releases/releases/download/v1.12.7/obsidian_1.12.7_amd64.deb -O /tmp/obsidian.deb && sudo dpkg -i /tmp/obsidian.deb
-```
+1. Installs all apt packages
+2. Deploys system config files to `/etc/` (requires sudo)
+3. Symlinks `~/.config/*`, `~/.local/bin/*`, and root dotfiles to the repo — `git pull` to update
+4. Sets zsh as default shell
+5. Installs vim-plug for neovim
+6. Prompts before installing: pwndbg, Rust, Brave, Docker, Obsidian
